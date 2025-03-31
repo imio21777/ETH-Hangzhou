@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataFlyer | Multi-Agent System</title>
+    <link rel="stylesheet" href="defi-styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.9/dist/index.min.js"></script>
+  </head>
+  <body>
+    <div class="gradient-bg">
+      <div class="light-orb"></div>
+      <div class="light-orb"></div>
+      <div class="light-orb"></div>
+      <div class="light-orb red-orb"></div>
+      <div class="light-orb red-orb"></div>
+      <canvas id="particleCanvas"></canvas>
+    </div>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">
+          <img src="image.png" alt="DataFlyer Logo" class="logo-img" />
+          <span class="logo-text">DataFlyer</span>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="#" class="active">Application</a></li>
+            <li><a href="#">Ecosystem</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Documentation</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <button class="btn btn-secondary">Get API</button>
+          <button id="connectWalletBtn" class="btn btn-primary">
+            Connect Account
+          </button>
+          <div id="walletInfo" class="wallet-info" style="display: none">
+            <span id="walletAddress"></span>
+            <div class="wallet-dropdown">
+              <div class="network-selector">
+                <span>Environment: </span>
+                <select id="networkSelector">
+                  <option value="1">Production</option>
+                  <option value="56">Testing</option>
+                  <option value="137">Development</option>
+                  <option value="42161">Local</option>
+                </select>
+              </div>
+              <div class="wallet-balance">
+                <span>Quota: </span>
+                <span id="walletBalance">0 points</span>
+              </div>
+              <button id="disconnectWalletBtn" class="btn btn-secondary btn-sm">
+                Disconnect
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="hero-section">
+          <h1 class="hero-title">
+            Powerful<br />
+            Multi-Agents System
+          </h1>
+          <p class="hero-subtitle">
+            Intelligent collaboration, efficiently handling complex tasks
+          </p>
+          <div class="cta-buttons">
+            <button
+              id="launchAppBtn"
+              class="btn btn-cta glow-effect translucent"
+            >
+              Get Started
+            </button>
+            <button
+              id="trySystemBtn"
+              class="btn btn-cta glow-effect translucent"
+              style="margin-left: 20px"
+            >
+              Try Our System
+            </button>
+          </div>
+        </div>
+
+        <section class="features-container container">
+          <div class="features-grid">
+            <!-- Feature 1: Intelligent Collaboration -->
+            <div class="feature-box">
+              <div class="feature-icon-container">
+                <svg viewBox="0 0 100 100">
+                  <!-- Complex linear spiral pattern -->
+                  <path
+                    d="M50 10 A40 40 0 0 1 90 50 A40 40 0 0 1 50 90 A40 40 0 0 1 10 50 A40 40 0 0 1 50 10"
+                    stroke-linecap="round"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.3"
+                  />
+                  <path
+                    d="M50 15 A35 35 0 0 1 85 50 A35 35 0 0 1 50 85 A35 35 0 0 1 15 50 A35 35 0 0 1 50 15"
+                    stroke-linecap="round"
+                    stroke-width="0.8"
+                    stroke-dasharray="2,2"
+                  />
+                  <path
+                    d="M50 20 A30 30 0 0 1 80 50 A30 30 0 0 1 50 80 A30 30 0 0 1 20 50 A30 30 0 0 1 50 20"
+                    stroke-linecap="round"
+                    stroke-width="1"
+                  />
+                  <path
+                    d="M50 25 A25 25 0 0 1 75 50 A25 25 0 0 1 50 75 A25 25 0 0 1 25 50 A25 25 0 0 1 50 25"
+                    stroke-linecap="round"
+                    stroke-width="0.8"
+                    stroke-dasharray="2,2"
+                  />
+                  <path
+                    d="M50 30 A20 20 0 0 1 70 50 A20 20 0 0 1 50 70 A20 20 0 0 1 30 50 A20 20 0 0 1 50 30"
+                    stroke-linecap="round"
+                    stroke-width="1"
+                  />
+                  <!-- Connection lines -->
+                  <path
+                    d="M50 10 L50 90"
+                    stroke-width="0.5"
+                    opacity="0.5"
+                    stroke-dasharray="2,4"
+                  />
+                  <path
+                    d="M10 50 L90 50"
+                    stroke-width="0.5"
+                    opacity="0.5"
+                    stroke-dasharray="2,4"
+                  />
+                  <!-- Highlights -->
+                  <circle cx="50" cy="10" r="2.5" fill="#fff" />
+                  <circle cx="90" cy="50" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="90" r="2.5" fill="#fff" />
+                  <circle cx="10" cy="50" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="50" r="3" fill="#fff" opacity="0.7" />
+                </svg>
+              </div>
+              <h3 class="feature-title">Intelligent Collaboration</h3>
+              <p class="feature-description">
+                Multi-Agent systems working together to solve complex problems
+              </p>
+            </div>
+
+            <!-- Feature 2: Reinforcement Learning -->
+            <div class="feature-box">
+              <div class="feature-icon-container">
+                <svg viewBox="0 0 100 100">
+                  <!-- Dynamic flow geometric pattern -->
+                  <path
+                    d="M50 15 L85 35 L85 75 L50 95 L15 75 L15 35 Z"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <path
+                    d="M50 25 L75 40 L75 70 L50 85 L25 70 L25 40 Z"
+                    stroke-width="1"
+                    stroke-dasharray="1,1"
+                    fill="none"
+                  />
+                  <path
+                    d="M50 35 L65 45 L65 65 L50 75 L35 65 L35 45 Z"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <!-- Internal flow lines -->
+                  <path
+                    d="M35 45 Q50 30 65 45"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <path
+                    d="M35 65 Q50 80 65 65"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.8"
+                  />
+                  <path
+                    d="M50 25 Q30 50 50 75"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.6"
+                    stroke-dasharray="2,2"
+                  />
+                  <path
+                    d="M50 25 Q70 50 50 75"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.6"
+                    stroke-dasharray="2,2"
+                  />
+                  <!-- Connection points -->
+                  <circle cx="50" cy="15" r="2.5" fill="#fff" />
+                  <circle cx="85" cy="35" r="2.5" fill="#fff" />
+                  <circle cx="85" cy="75" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="95" r="2.5" fill="#fff" />
+                  <circle cx="15" cy="75" r="2.5" fill="#fff" />
+                  <circle cx="15" cy="35" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="50" r="4" fill="#fff" opacity="0.5" />
+                </svg>
+              </div>
+              <h3 class="feature-title">Reinforcement Learning</h3>
+              <p class="feature-description">
+                Optimized feedback based on human traders for optimal trading
+                strategies
+              </p>
+            </div>
+
+            <!-- Feature 3: Data Security -->
+            <div class="feature-box">
+              <div class="feature-icon-container">
+                <svg viewBox="0 0 100 100">
+                  <!-- Security shield geometric pattern -->
+                  <path
+                    d="M50 10 L80 25 L80 55 C80 70 65 85 50 90 C35 85 20 70 20 55 L20 25 Z"
+                    stroke-width="1"
+                    fill="none"
+                  />
+                  <path
+                    d="M50 20 L70 30 L70 55 C70 65 60 75 50 80 C40 75 30 65 30 55 L30 30 Z"
+                    stroke-width="1"
+                    stroke-dasharray="2,2"
+                    fill="none"
+                  />
+                  <!-- Internal security structure -->
+                  <path
+                    d="M40 40 L50 30 L60 40 L60 55 L50 65 L40 55 Z"
+                    stroke-width="1.2"
+                    fill="none"
+                  />
+                  <path
+                    d="M45 50 L55 50"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M50 45 L50 55"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                  />
+                  <!-- Radiation security lines -->
+                  <path
+                    d="M50 10 L50 20"
+                    stroke-width="0.6"
+                    stroke-dasharray="1,2"
+                    opacity="0.7"
+                  />
+                  <path
+                    d="M80 25 L70 30"
+                    stroke-width="0.6"
+                    stroke-dasharray="1,2"
+                    opacity="0.7"
+                  />
+                  <path
+                    d="M20 25 L30 30"
+                    stroke-width="0.6"
+                    stroke-dasharray="1,2"
+                    opacity="0.7"
+                  />
+                  <path
+                    d="M50 80 L50 90"
+                    stroke-width="0.6"
+                    stroke-dasharray="1,2"
+                    opacity="0.7"
+                  />
+                  <!-- Connection points -->
+                  <circle cx="50" cy="10" r="2.5" fill="#fff" />
+                  <circle cx="80" cy="25" r="2.5" fill="#fff" />
+                  <circle cx="20" cy="25" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="90" r="2.5" fill="#fff" />
+                  <circle cx="50" cy="50" r="3" fill="#fff" opacity="0.6" />
+                </svg>
+              </div>
+              <h3 class="feature-title">Data Security</h3>
+              <p class="feature-description">
+                Multi-layer encryption protection ensuring reliable and secure
+                data processing
+              </p>
+            </div>
+
+            <!-- Feature 4: Highly Scalable -->
+            <div class="feature-box">
+              <div class="feature-icon-container">
+                <svg viewBox="0 0 100 100">
+                  <!-- Complex network interconnection pattern -->
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="30"
+                    stroke-width="0.8"
+                    fill="none"
+                    opacity="0.3"
+                  />
+
+                  <!-- Internal connection nodes -->
+                  <circle cx="35" cy="35" r="6" stroke-width="1" fill="none" />
+                  <circle cx="65" cy="35" r="6" stroke-width="1" fill="none" />
+                  <circle cx="65" cy="65" r="6" stroke-width="1" fill="none" />
+                  <circle cx="35" cy="65" r="6" stroke-width="1" fill="none" />
+                  <circle cx="50" cy="25" r="6" stroke-width="1" fill="none" />
+                  <circle cx="75" cy="50" r="6" stroke-width="1" fill="none" />
+                  <circle cx="50" cy="75" r="6" stroke-width="1" fill="none" />
+                  <circle cx="25" cy="50" r="6" stroke-width="1" fill="none" />
+
+                  <!-- Connection lines -->
+                  <path
+                    d="M35 35 L65 35 L65 65 L35 65 Z"
+                    stroke-width="0.8"
+                    fill="none"
+                  />
+                  <path d="M50 25 L50 75" stroke-width="0.8" fill="none" />
+                  <path d="M25 50 L75 50" stroke-width="0.8" fill="none" />
+                  <path
+                    d="M35 35 L65 65"
+                    stroke-width="0.5"
+                    stroke-dasharray="2,2"
+                    fill="none"
+                  />
+                  <path
+                    d="M65 35 L35 65"
+                    stroke-width="0.5"
+                    stroke-dasharray="2,2"
+                    fill="none"
+                  />
+
+                  <!-- Rotating outer ring -->
+                  <path
+                    d="M50 15 A35 35 0 0 1 85 50 A35 35 0 0 1 50 85 A35 35 0 0 1 15 50 A35 35 0 0 1 50 15"
+                    stroke-width="0.5"
+                    stroke-dasharray="1,2"
+                    fill="none"
+                  />
+
+                  <!-- Node highlights -->
+                  <circle cx="35" cy="35" r="2" fill="#fff" />
+                  <circle cx="65" cy="35" r="2" fill="#fff" />
+                  <circle cx="65" cy="65" r="2" fill="#fff" />
+                  <circle cx="35" cy="65" r="2" fill="#fff" />
+                  <circle cx="50" cy="25" r="2" fill="#fff" />
+                  <circle cx="75" cy="50" r="2" fill="#fff" />
+                  <circle cx="50" cy="75" r="2" fill="#fff" />
+                  <circle cx="25" cy="50" r="2" fill="#fff" />
+                  <circle cx="50" cy="50" r="3" fill="#fff" opacity="0.8" />
+                </svg>
+              </div>
+              <h3 class="feature-title">Highly Scalable</h3>
+              <p class="feature-description">
+                Easily add new Agents and capabilities to adapt to changing
+                requirements
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div class="supported-chains">
+          <h2>Supported Networks</h2>
+          <div class="chain-logos">
+            <div class="chain-logos-scroll">
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://assets.coingecko.com/coins/images/279/small/ethereum.png"
+                    alt="Ethereum"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Ethereum</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/polygon-matic-logo.png"
+                    alt="Polygon"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Polygon</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/bnb-bnb-logo.png"
+                    alt="Binance Smart Chain"
+                    class="chain-img"
+                  />
+                </div>
+                <span>BSC</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/arbitrum-arb-logo.png"
+                    alt="Arbitrum"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Arbitrum</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://assets.coingecko.com/coins/images/25244/small/Optimism.png"
+                    alt="Optimism"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Optimism</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/avalanche-avax-logo.png"
+                    alt="Avalanche"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Avalanche</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/fantom-ftm-logo.png"
+                    alt="Fantom"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Fantom</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/celo-celo-logo.png"
+                    alt="Celo"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Celo</span>
+              </div>
+              <!-- Duplicate these logos for seamless scrolling -->
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://assets.coingecko.com/coins/images/279/small/ethereum.png"
+                    alt="Ethereum"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Ethereum</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/polygon-matic-logo.png"
+                    alt="Polygon"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Polygon</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/bnb-bnb-logo.png"
+                    alt="Binance Smart Chain"
+                    class="chain-img"
+                  />
+                </div>
+                <span>BSC</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/arbitrum-arb-logo.png"
+                    alt="Arbitrum"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Arbitrum</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://assets.coingecko.com/coins/images/25244/small/Optimism.png"
+                    alt="Optimism"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Optimism</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/avalanche-avax-logo.png"
+                    alt="Avalanche"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Avalanche</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/fantom-ftm-logo.png"
+                    alt="Fantom"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Fantom</span>
+              </div>
+              <div class="chain-logo">
+                <div class="chain-img-container">
+                  <img
+                    src="https://cryptologos.cc/logos/celo-celo-logo.png"
+                    alt="Celo"
+                    class="chain-img"
+                  />
+                </div>
+                <span>Celo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <img
+              src="https://placehold.co/40"
+              alt="DataFlyer Logo"
+              class="logo-img"
+            />
+            <span class="logo-text">DataFlyer</span>
+          </div>
+          <div class="footer-links">
+            <div class="footer-links-col">
+              <h4>Products</h4>
+              <ul>
+                <li><a href="#">Intelligent Agents</a></li>
+                <li><a href="#">Data Processing</a></li>
+                <li><a href="#">Automated Workflows</a></li>
+                <li><a href="#">Custom Solutions</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-col">
+              <h4>Developers</h4>
+              <ul>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Github</a></li>
+                <li><a href="#">API</a></li>
+                <li><a href="#">SDK</a></li>
+              </ul>
+            </div>
+            <div class="footer-links-col">
+              <h4>About</h4>
+              <ul>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Roadmap</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-social">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-medium"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2023 DataFlyer. All rights reserved.</p>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Risk Disclaimer</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="defi-script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Associate launch app button with wallet connection
+        const launchAppBtn = document.getElementById("launchAppBtn");
+        if (launchAppBtn) {
+          launchAppBtn.addEventListener("click", () => {
+            const walletConnected =
+              localStorage.getItem("walletConnected") === "true";
+            if (walletConnected) {
+              // Wallet connected, redirect to app page
+              showNotification("Loading application...", "info");
+              setTimeout(() => {
+                window.location.href = "app.html"; // Redirect to app page with delay
+              }, 800);
+            } else {
+              // Wallet not connected, open wallet modal
+              const walletModal = document.getElementById("walletModal");
+              if (walletModal) {
+                walletModal.classList.add("show");
+              } else {
+                // If modal doesn't exist yet, create one
+                createWalletModal();
+              }
+            }
+          });
+        }
+
+        // Associate try system button with wallet connection
+        const trySystemBtn = document.getElementById("trySystemBtn");
+        if (trySystemBtn) {
+          trySystemBtn.addEventListener("click", () => {
+            const walletConnected =
+              localStorage.getItem("walletConnected") === "true";
+            if (walletConnected) {
+              // 创建iframe模态框而不是重定向
+              showNotification("加载系统演示...", "info");
+
+              // 创建iframe模态框
+              const iframeModal = document.createElement("div");
+              iframeModal.className = "iframe-modal";
+              iframeModal.style.position = "fixed";
+              iframeModal.style.top = "0";
+              iframeModal.style.left = "0";
+              iframeModal.style.width = "100%";
+              iframeModal.style.height = "100%";
+              iframeModal.style.backgroundColor = "rgba(0, 0, 0, 0.8)";
+              iframeModal.style.zIndex = "1001";
+              iframeModal.style.display = "flex";
+              iframeModal.style.flexDirection = "column";
+              iframeModal.style.alignItems = "center";
+              iframeModal.style.justifyContent = "center";
+              iframeModal.style.opacity = "0";
+              iframeModal.style.transition = "opacity 0.3s ease";
+
+              // 创建iframe容器
+              const iframeContainer = document.createElement("div");
+              iframeContainer.style.position = "relative";
+              iframeContainer.style.width = "90%";
+              iframeContainer.style.height = "90%";
+              iframeContainer.style.backgroundColor = "#000";
+              iframeContainer.style.borderRadius = "10px";
+              iframeContainer.style.overflow = "hidden";
+              iframeContainer.style.boxShadow =
+                "0 0 20px rgba(0, 100, 255, 0.5)";
+              iframeContainer.style.transform = "scale(0.3)";
+              iframeContainer.style.transition =
+                "transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+
+              // 创建关闭按钮
+              const closeButton = document.createElement("button");
+              closeButton.innerHTML = "×";
+              closeButton.style.position = "absolute";
+              closeButton.style.top = "10px";
+              closeButton.style.right = "10px";
+              closeButton.style.width = "40px";
+              closeButton.style.height = "40px";
+              closeButton.style.border = "none";
+              closeButton.style.borderRadius = "50%";
+              closeButton.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+              closeButton.style.color = "white";
+              closeButton.style.fontSize = "24px";
+              closeButton.style.cursor = "pointer";
+              closeButton.style.zIndex = "1002";
+              closeButton.style.display = "flex";
+              closeButton.style.alignItems = "center";
+              closeButton.style.justifyContent = "center";
+              closeButton.style.opacity = "0";
+              closeButton.style.transition = "opacity 0.3s ease 0.3s"; // 延迟显示关闭按钮
+              closeButton.onclick = () => {
+                // 关闭时添加逆向动画
+                iframeContainer.style.transform = "scale(0.3)";
+                iframeModal.style.opacity = "0";
+                closeButton.style.opacity = "0";
+
+                // 动画结束后移除元素
+                setTimeout(() => {
+                  document.body.removeChild(iframeModal);
+                }, 400);
+              };
+
+              // 创建iframe
+              const iframe = document.createElement("iframe");
+              iframe.src = "http://127.0.0.1:8080/";
+              iframe.style.width = "100%";
+              iframe.style.height = "100%";
+              iframe.style.border = "none";
+              iframe.style.borderRadius = "10px";
+
+              // 组装模态框
+              iframeContainer.appendChild(iframe);
+              iframeContainer.appendChild(closeButton);
+              iframeModal.appendChild(iframeContainer);
+              document.body.appendChild(iframeModal);
+
+              // 强制回流后再添加动画类，确保动画效果
+              setTimeout(() => {
+                iframeModal.style.opacity = "1";
+                iframeContainer.style.transform = "scale(1)";
+                closeButton.style.opacity = "1";
+              }, 50);
+            } else {
+              // Wallet not connected, open wallet modal
+              const walletModal = document.getElementById("walletModal");
+              if (walletModal) {
+                walletModal.classList.add("show");
+              } else {
+                // If modal doesn't exist yet, create one
+                createWalletModal();
+              }
+            }
+          });
+        }
+
+        // Connect wallet button functionality
+        const connectWalletBtn = document.getElementById("connectWalletBtn");
+        if (connectWalletBtn) {
+          connectWalletBtn.addEventListener("click", () => {
+            // Simulate wallet connection
+            localStorage.setItem("walletConnected", "true");
+            localStorage.setItem("walletAddress", "0x7F5D...E24A"); // Example address
+
+            // Show connected state
+            const walletInfo = document.getElementById("walletInfo");
+            const walletAddress = document.getElementById("walletAddress");
+            if (walletInfo && walletAddress) {
+              walletAddress.textContent = localStorage.getItem("walletAddress");
+              walletInfo.style.display = "flex";
+              connectWalletBtn.style.display = "none";
+            }
+
+            showNotification("Wallet connected successfully", "success");
+          });
+        }
+
+        // Disconnect wallet button functionality
+        const disconnectWalletBtn = document.getElementById(
+          "disconnectWalletBtn"
+        );
+        if (disconnectWalletBtn) {
+          disconnectWalletBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Prevent event bubbling
+
+            // Disconnect wallet
+            localStorage.removeItem("walletConnected");
+            localStorage.removeItem("walletAddress");
+
+            // Update UI
+            const walletInfo = document.getElementById("walletInfo");
+            if (walletInfo && connectWalletBtn) {
+              walletInfo.style.display = "none";
+              connectWalletBtn.style.display = "block";
+            }
+
+            showNotification("Wallet disconnected", "info");
+          });
+        }
+
+        // Check wallet connection status on page load
+        const checkWalletConnection = () => {
+          const walletConnected =
+            localStorage.getItem("walletConnected") === "true";
+          if (walletConnected) {
+            const walletAddress = localStorage.getItem("walletAddress");
+            const walletInfo = document.getElementById("walletInfo");
+            const walletAddressElement =
+              document.getElementById("walletAddress");
+
+            if (walletInfo && walletAddressElement && connectWalletBtn) {
+              walletAddressElement.textContent = walletAddress;
+              walletInfo.style.display = "flex";
+              connectWalletBtn.style.display = "none";
+            }
+          }
+        };
+
+        checkWalletConnection();
+
+        // Helper function to show notifications
+        function showNotification(message, type) {
+          // Check if notification container exists
+          let notificationContainer = document.querySelector(
+            ".notification-container"
+          );
+
+          // Create if it doesn't exist
+          if (!notificationContainer) {
+            notificationContainer = document.createElement("div");
+            notificationContainer.className = "notification-container";
+            notificationContainer.style.position = "fixed";
+            notificationContainer.style.top = "20px";
+            notificationContainer.style.right = "20px";
+            notificationContainer.style.zIndex = "1000";
+            document.body.appendChild(notificationContainer);
+          }
+
+          // Create notification
+          const notification = document.createElement("div");
+          notification.className = `notification ${type}`;
+          notification.style.padding = "12px 20px";
+          notification.style.margin = "10px 0";
+          notification.style.borderRadius = "8px";
+          notification.style.backgroundColor =
+            type === "success"
+              ? "rgba(25, 135, 84, 0.95)"
+              : "rgba(13, 110, 253, 0.95)";
+          notification.style.color = "white";
+          notification.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.15)";
+          notification.style.transition = "all 0.3s ease";
+          notification.style.transform = "translateX(100%)";
+          notification.style.opacity = "0";
+          notification.textContent = message;
+
+          // Add to container
+          notificationContainer.appendChild(notification);
+
+          // Trigger animation
+          setTimeout(() => {
+            notification.style.transform = "translateX(0)";
+            notification.style.opacity = "1";
+          }, 10);
+
+          // Remove after delay
+          setTimeout(() => {
+            notification.style.transform = "translateX(100%)";
+            notification.style.opacity = "0";
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
+        }
+
+        // Helper function to create wallet modal if it doesn't exist
+        function createWalletModal() {
+          const modal = document.createElement("div");
+          modal.id = "walletModal";
+          modal.className = "wallet-modal";
+
+          modal.innerHTML = `
+                    <div class="wallet-modal-content">
+                        <div class="wallet-modal-header">
+                            <h3 class="wallet-modal-title">Connect Wallet</h3>
+                            <button class="wallet-modal-close">&times;</button>
+                        </div>
+                        <div class="wallet-list">
+                            <div class="wallet-option" data-wallet="metamask">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/metamask-2728406-2261817.png" alt="MetaMask" class="wallet-icon">
+                                <span class="wallet-name">MetaMask</span>
+                            </div>
+                            <div class="wallet-option" data-wallet="walletconnect">
+                                <img src="https://seeklogo.com/images/W/walletconnect-logo-EE83B50C97-seeklogo.com.png" alt="WalletConnect" class="wallet-icon">
+                                <span class="wallet-name">WalletConnect</span>
+                            </div>
+                            <div class="wallet-option" data-wallet="coinbase">
+                                <img src="https://cdn.iconscout.com/icon/free/png-256/coinbase-7755919-6345891.png" alt="Coinbase Wallet" class="wallet-icon">
+                                <span class="wallet-name">Coinbase Wallet</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+          document.body.appendChild(modal);
+
+          // Add functionality to close button
+          const closeButton = modal.querySelector(".wallet-modal-close");
+          closeButton.addEventListener("click", () => {
+            modal.classList.remove("show");
+          });
+
+          // Add functionality to wallet options
+          const walletOptions = modal.querySelectorAll(".wallet-option");
+          walletOptions.forEach((option) => {
+            option.addEventListener("click", () => {
+              // Simulate connecting with the selected wallet
+              localStorage.setItem("walletConnected", "true");
+              localStorage.setItem("walletAddress", "0x7F5D...E24A"); // Example address
+              localStorage.setItem("walletType", option.dataset.wallet);
+
+              modal.classList.remove("show");
+
+              // Update UI
+              const walletInfo = document.getElementById("walletInfo");
+              const walletAddress = document.getElementById("walletAddress");
+              if (walletInfo && walletAddress && connectWalletBtn) {
+                walletAddress.textContent =
+                  localStorage.getItem("walletAddress");
+                walletInfo.style.display = "flex";
+                connectWalletBtn.style.display = "none";
+              }
+
+              showNotification("Wallet connected successfully", "success");
+
+              // Redirect to app page after successful connection
+              setTimeout(() => {
+                window.location.href = "app.html";
+              }, 1000);
+            });
+          });
+
+          // Show the modal
+          setTimeout(() => {
+            modal.classList.add("show");
+          }, 10);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1226 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #0d2b45;
+    --primary-dark: #051725;
+    --secondary: #1d3043;
+    --background: #000a12;
+    --text-light: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-dimmed: rgba(255, 255, 255, 0.5);
+    --card-bg: rgba(10, 28, 45, 0.25);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --section-padding: 6rem 0;
+    --transition: all 0.3s ease;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 渐变背景 */
+.gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, 
+        #061e30 0%,
+        #05172a 10%,
+        #041525 20%, 
+        #030f1d 40%, 
+        #020a14 60%, 
+        #01060d 80%,
+        #000205 95%);
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+    opacity: 1;
+    overflow: hidden;
+}
+
+.gradient-bg::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(26, 59, 102, 0.07),
+        rgba(19, 44, 77, 0.05) 20%,
+        rgba(13, 30, 54, 0.03) 40%,
+        transparent 70%
+    );
+    opacity: 0.6;
+    animation: rotate 25s linear infinite;
+    transform-origin: center center;
+}
+
+.gradient-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(26, 59, 102, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 20% 30%, rgba(19, 44, 77, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(8, 25, 43, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(4, 12, 22, 0.05) 0%, transparent 60%);
+    z-index: -1;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 添加交融效果的光斑 */
+.light-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.3;
+    mix-blend-mode: screen;
+    animation: float-orb 20s ease-in-out infinite, pulse-orb 10s ease-in-out infinite alternate;
+}
+
+.light-orb:nth-child(1) {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(26, 59, 102, 0.2) 0%, rgba(26, 59, 102, 0) 70%);
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.light-orb:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(19, 44, 77, 0.15) 0%, rgba(19, 44, 77, 0) 70%);
+    top: 40%;
+    right: 10%;
+    animation-delay: 5s;
+}
+
+.light-orb:nth-child(3) {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(8, 25, 43, 0.2) 0%, rgba(8, 25, 43, 0) 70%);
+    bottom: 15%;
+    left: 25%;
+    animation-delay: 2s;
+}
+
+@keyframes float-orb {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-50px) translateX(30px);
+    }
+    50% {
+        transform: translateY(20px) translateX(-40px);
+    }
+    75% {
+        transform: translateY(30px) translateX(20px);
+    }
+}
+
+@keyframes pulse-orb {
+    0%, 100% {
+        opacity: 0.3;
+        filter: blur(40px);
+    }
+    50% {
+        opacity: 0.5;
+        filter: blur(50px);
+    }
+}
+
+/* 容器 */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* 页眉样式 */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(13, 11, 33, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+.site-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 36px;
+    height: 36px;
+    margin-right: 0.5rem;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.main-nav li {
+    margin: 0 1rem;
+}
+
+.main-nav a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 0.5rem 0;
+}
+
+.main-nav a:hover, 
+.main-nav a.active {
+    color: var(--text-light);
+}
+
+.main-nav a.active {
+    position: relative;
+}
+
+.main-nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0d2b45;
+    border-radius: 2px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    outline: none;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #0d2b45, #051725);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #051725, #0d2b45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 59, 102, 0.3);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-cta {
+    background: linear-gradient(45deg, #0d2b45, #051725);
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(26, 59, 102, 0.4);
+    transition: all 0.3s ease;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-cta::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: all 0.6s ease;
+}
+
+.btn-cta:hover {
+    background: linear-gradient(45deg, #051725, #0d2b45);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(26, 59, 102, 0.5);
+}
+
+.btn-cta:hover::after {
+    left: 100%;
+}
+
+/* 为Get Started按钮添加半透明效果和增强质感 */
+.btn-cta.translucent {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(31, 38, 135, 0.2),
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-cta.translucent:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 40px rgba(31, 38, 135, 0.3),
+        0 6px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+.btn-cta.translucent:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 5px 15px rgba(31, 38, 135, 0.2),
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+/* 修改原来的发光效果以适应半透明按钮 */
+.btn-cta.translucent.glow-effect:before {
+    opacity: 0.6;
+}
+
+/* 主要内容 */
+.main-content {
+    padding-top: 80px; /* 页眉高度 + 额外空间 */
+}
+
+/* Hero Section */
+.hero-section {
+    text-align: center;
+    padding: 8rem 0 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to right, #ffffff, #7a99ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+}
+
+.cta-buttons {
+    margin-top: 2rem;
+}
+
+/* 特性部分 */
+.features-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem 0;
+}
+
+.feature-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s ease;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+        rgba(233, 68, 106, 0.05) 0%, 
+        rgba(139, 93, 255, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.feature-card:hover::after {
+    opacity: 1;
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0d2b45, #051725);
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(26, 59, 102, 0.2);
+}
+
+.feature-icon i {
+    font-size: 24px;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* 支持的链 */
+.supported-chains {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.supported-chains h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* 网络logo滚动效果 */
+.chain-logos {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    max-width: calc(125px * 6); /* 每个logo宽度(60px)加边距(50px)乘以6个 */
+    margin: 0 auto; /* 居中显示 */
+    position: relative;
+    padding: 20px 15px; /* 增加上下左右内边距，确保悬停效果完全显示 */
+}
+
+.chain-logos-scroll {
+    display: flex;
+    animation: scrollLogos 8s linear infinite; /* 加快滚动速度，从15s改为8s */
+    min-width: 100%;
+}
+
+.chain-logos-scroll:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%); /* 精确滚动一半距离，刚好是8个标志的宽度 */
+    }
+}
+
+/* 让滚动效果更平滑 */
+.chain-logo {
+    flex: 0 0 auto;
+    margin: 0 15px; /* 减少间距以确保布局合理 */
+    padding: 10px; /* 增加内边距，为悬停效果留出空间 */
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* 添加相对定位 */
+}
+
+.chain-logo:hover {
+    transform: translateY(-5px); /* 移除scale效果，只保留上移效果 */
+}
+
+.chain-logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.chain-logo span {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.chain-logo.hovered {
+    z-index: 10; /* 提高悬停状态时的层级 */
+}
+
+/* 页脚 */
+.site-footer {
+    background-color: rgba(13, 11, 33, 0.8);
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 0 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.footer-links-col h4 {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.footer-links-col ul {
+    list-style: none;
+}
+
+.footer-links-col li {
+    margin-bottom: 0.7rem;
+}
+
+.footer-links-col a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links-col a:hover {
+    color: var(--text-light);
+}
+
+.footer-social {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+.social-icon:hover {
+    background-color: #19c288;
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-dimmed);
+    font-size: 0.9rem;
+}
+
+.footer-legal {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-legal a {
+    color: var(--text-dimmed);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-legal a:hover {
+    color: var(--text-light);
+}
+
+/* 响应式设计 */
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-logo, .footer-social {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .main-nav li {
+        margin: 0.5rem;
+    }
+    
+    .header-actions {
+        margin-top: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .features-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .chain-logos {
+        gap: 1.5rem;
+    }
+    
+    .footer-links {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .footer-legal {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .btn-cta {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* 玻璃效果 */
+.glass-effect {
+    background: rgba(45, 43, 78, 0.25) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 8px 32px rgba(14, 5, 30, 0.2) !important;
+}
+
+.glass-effect:hover {
+    background: rgba(45, 43, 78, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 32px rgba(14, 5, 30, 0.3), 
+                0 0 15px rgba(233, 68, 106, 0.15) !important;
+}
+
+/* 发光效果 */
+.glow-effect {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.glow-effect::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        #1a4a7c, 
+        #0a2840,
+        #072038,
+        #1a4a7c);
+    background-size: 400% 400%;
+    z-index: -1;
+    animation: glowing 3s ease-in-out infinite;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.glow-effect:hover::before {
+    opacity: 1;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 粒子画布 */
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* 添加额外的红色光斑样式 */
+.red-orb {
+    background: radial-gradient(circle, rgba(26, 59, 102, 0.3) 0%, rgba(26, 59, 102, 0) 70%);
+    mix-blend-mode: screen;
+    filter: blur(30px);
+}
+
+.red-orb:nth-child(4) {
+    width: 200px;
+    height: 200px;
+    top: 5%;
+    left: 5%;
+    animation-delay: 1s;
+}
+
+.red-orb:nth-child(5) {
+    width: 280px;
+    height: 280px;
+    bottom: 30%;
+    left: 2%;
+    animation-delay: 3s;
+}
+
+/* 改进区块链图标样式 */
+.chain-img-container {
+    width: 60px;
+    height: 60px;
+    background: rgba(18, 29, 51, 0.5);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+    z-index: 2; /* 确保在上层 */
+}
+
+.chain-img-container.glow {
+    box-shadow: 0 0 20px rgba(66, 99, 235, 0.8), 0 0 40px rgba(66, 99, 235, 0.4);
+    transform: scale(1.1); /* 移除旋转效果，只保留放大效果 */
+}
+
+.chain-img {
+    width: 70%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.chain-logo:hover .chain-img-container {
+    box-shadow: 0 0 20px rgba(38, 104, 194, 0.5);
+    border-color: rgba(38, 104, 194, 0.3);
+    transform: translateY(-5px);
+}
+
+/* 修改导航激活样式 */
+.main-nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0d2b45;
+    border-radius: 2px;
+}
+
+/* 修改主标题样式 */
+.main-nav a.active {
+    color: #0d2b45;
+}
+
+/* 调整主题色的变量使用 */
+:root {
+    --primary: #0d2b45;
+    --primary-dark: #051725;
+    --secondary: #1d3043;
+    --background: #000a12;
+    --text-light: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-dimmed: rgba(255, 255, 255, 0.5);
+    --card-bg: rgba(10, 28, 45, 0.25);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --section-padding: 6rem 0;
+    --transition: all 0.3s ease;
+}
+
+/* 特性卡片 - 深蓝风格 */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 60px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-box {
+    background: rgba(7, 16, 29, 0.6);
+    border-radius: 16px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(26, 59, 102, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-box:hover {
+    transform: translateY(-12px);
+    border-color: rgba(38, 104, 194, 0.4);
+    box-shadow: 0 15px 30px rgba(7, 16, 29, 0.5), 
+                0 0 15px rgba(26, 59, 102, 0.3);
+}
+
+.feature-icon-container {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.feature-icon-container svg {
+    width: 100%;
+    height: 100%;
+    stroke: #ffffff;
+    stroke-width: 1;
+    fill: none;
+}
+
+.feature-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.feature-description {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+}
+
+@media (max-width: 992px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 为特性图标添加动画效果 */
+.feature-icon-container svg {
+    animation: svgRotate 30s linear infinite;
+}
+
+@keyframes svgRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 为特性盒子添加霓虹边框效果 */
+.feature-box::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    z-index: -1;
+    background: linear-gradient(45deg, 
+        rgba(26, 59, 102, 0), 
+        rgba(26, 59, 102, 0.3), 
+        rgba(26, 59, 102, 0));
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feature-box:hover::after {
+    opacity: 1;
+    animation: borderGlow 2s linear infinite;
+}
+
+@keyframes borderGlow {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 200% 0%;
+    }
+}
+
+/* 添加路径动画 */
+@keyframes dashOffset {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+        stroke-dashoffset: 20;
+    }
+}
+
+/* 添加脉冲动画 */
+@keyframes pulse {
+    0% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+}
+
+/* 钱包连接样式 */
+.wallet-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(26, 59, 102, 0.4), rgba(8, 19, 35, 0.4));
+    border: 1px solid rgba(26, 59, 102, 0.5);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.wallet-info:hover {
+    background: linear-gradient(90deg, rgba(26, 59, 102, 0.5), rgba(8, 19, 35, 0.5));
+    border-color: rgba(26, 59, 102, 0.7);
+}
+
+#walletAddress {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wallet-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    width: 200px;
+    background: rgba(7, 16, 29, 0.95);
+    border: 1px solid rgba(26, 59, 102, 0.5);
+    border-radius: 6px;
+    padding: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-info:hover .wallet-dropdown {
+    display: flex;
+}
+
+.wallet-balance {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* 钱包选择模态框 */
+.wallet-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.wallet-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.wallet-modal-content {
+    background: rgba(10, 28, 45, 0.95);
+    border: 1px solid rgba(26, 59, 102, 0.5);
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    padding: 2rem;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.wallet-modal.show .wallet-modal-content {
+    transform: translateY(0);
+}
+
+.wallet-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.wallet-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.wallet-modal-close {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.wallet-modal-close:hover {
+    color: var(--text-light);
+}
+
+.wallet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.wallet-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(26, 59, 102, 0.2);
+    border: 1px solid rgba(26, 59, 102, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.wallet-option:hover {
+    background: rgba(26, 59, 102, 0.3);
+    transform: translateY(-2px);
+}
+
+.wallet-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+.wallet-name {
+    font-weight: 600;
+}
+
+.wallet-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.wallet-option.disabled:hover {
+    background: rgba(26, 59, 102, 0.2);
+    transform: none;
+}
+
+/* 网络选择器样式 */
+.network-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.network-selector select {
+    background: rgba(26, 59, 102, 0.3);
+    border: 1px solid rgba(26, 59, 102, 0.6);
+    border-radius: 4px;
+    color: var(--text-light);
+    padding: 0.3rem;
+    font-size: 0.85rem;
+    width: 70%;
+    outline: none;
+}
+
+.network-selector select:focus {
+    border-color: rgba(38, 104, 194, 0.8);
+    box-shadow: 0 0 0 2px rgba(38, 104, 194, 0.3);
+}
+
+.network-selector select option {
+    background-color: #0a1c2d;
+}
+
+/* 已移除钱包详情面板的动画效果 */ 
