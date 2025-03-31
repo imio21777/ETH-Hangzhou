@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>区块链多代理可视化系统</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="visualization">
+          <div id="agent-graph"></div>
+        </div>
+        <div class="user-interaction">
+          <div class="input-panel">
+            <textarea
+              id="requestContent"
+              placeholder="输入您的请求，例如：钱包地址、合约地址、代币名称交易指令等..."
+            ></textarea>
+            <button id="submitRequest" class="submit-button">提交请求</button>
+            <div id="extractedKey" class="extracted-key"></div>
+          </div>
+          <div class="response-panel">
+            <h3>响应结果</h3>
+            <div id="responseLog" class="log-container"></div>
+          </div>
+          <div class="log-panel">
+            <h3>代理交互日志</h3>
+            <div id="interactionLog" class="log-container"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script>
+      window.addEventListener("message", function (event) {
+        if (event.data.type === "WALLET_CONNECTION") {
+          console.log("收到父窗口钱包连接信息:", event.data);
+          window.parentWalletAddress = event.data.address;
+          window.parentWalletProvider = event.data.provider;
+        }
+      });
+
+      function requestParentWalletConnection() {
+        window.parent.postMessage({ type: "REQUEST_WALLET_CONNECTION" }, "*");
+      }
+
+      window.addEventListener("load", function () {
+        requestParentWalletConnection();
+      });
+    </script>
+  </body>
+</html>

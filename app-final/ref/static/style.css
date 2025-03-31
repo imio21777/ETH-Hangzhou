@@ -1,0 +1,262 @@
+/* 基本样式 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+/* 代理图相关样式 */
+#agent-graph {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    background-color: #1f1a36;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* 节点样式 */
+.node rect, .node path {
+    stroke-width: 2px;
+}
+
+.node.info-process-agent rect {
+    fill: #9c58c5;
+    stroke: #ffffff;
+}
+
+.node.central-agent rect {
+    fill: #9c58c5;
+    stroke: #ffffff;
+}
+
+.node.data-clean-agent rect {
+    fill: #9c58c5;
+    stroke: #ffffff;
+}
+
+.node.multi-agents rect {
+    fill: #9c58c5;
+    stroke: #ffffff;
+}
+
+.node.api-node rect {
+    fill: #65c9ab;
+    stroke: #ffffff;
+}
+
+.node.user-node rect {
+    fill: #8a56c5;
+    stroke: #ffffff;
+}
+
+.node.specialized-agent rect {
+    fill: #2f55c5;
+    stroke: #ffffff;
+}
+
+.node.execution-agent rect {
+    fill: #2f55c5;
+    stroke: #ffffff;
+}
+
+.node.alarm-agent rect {
+    fill: #2f55c5;
+    stroke: #ffffff;
+}
+
+.node.result-node rect {
+    fill: transparent;
+    stroke: #ff9c41;
+    stroke-dasharray: 5,2;
+}
+
+/* 节点文本样式 */
+.node-label {
+    fill: white;
+    font-size: 12px;
+    font-weight: bold;
+    pointer-events: none;
+    font-family: Arial, sans-serif;
+    dominant-baseline: middle;
+    text-anchor: middle;
+}
+
+.result-node .node-label {
+    fill: #ff9c41;
+}
+
+/* 连接线样式 */
+.link {
+    stroke: #ffffff;
+    stroke-opacity: 0.8;
+    stroke-width: 2px;
+}
+
+.temp-link {
+    stroke-width: 2px;
+    stroke-dasharray: 5,2;
+}
+
+/* 消息样式 */
+.message {
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+/* 信息框样式 */
+.info-box {
+    fill: transparent;
+    stroke: #ff9c41;
+    stroke-width: 2px;
+    stroke-dasharray: 5,2;
+}
+
+.info-box-text {
+    fill: #ff9c41;
+    font-size: 11px;
+    font-family: Arial, sans-serif;
+}
+
+/* 日志容器样式 */
+.log-container {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    font-family: monospace;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* 消息类型样式 */
+.agent-message {
+    color: #3498db;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #3498db;
+}
+
+.api-call {
+    color: #e74c3c;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #e74c3c;
+}
+
+.api-response {
+    color: #2ecc71;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #2ecc71;
+}
+
+.llm-request {
+    color: #9b59b6;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #9b59b6;
+}
+
+.llm-response {
+    color: #f39c12;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #f39c12;
+}
+
+.error-message {
+    color: #c0392b;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #c0392b;
+    background-color: #fadbd8;
+}
+
+.system-message {
+    color: #7f8c8d;
+    margin-bottom: 5px;
+    padding: 5px;
+    border-left: 3px solid #7f8c8d;
+    background-color: #f2f3f4;
+}
+
+/* 详情按钮 */
+.details-button {
+    margin-left: 10px;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.details-button:hover {
+    background-color: #e9ecef;
+}
+
+/* 详情内容 */
+.details-content {
+    margin-top: 5px;
+    margin-left: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.details-content pre {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* 加载提示 */
+.loading {
+    padding: 10px;
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+/* 错误信息 */
+.error {
+    padding: 10px;
+    color: #c0392b;
+    background-color: #fadbd8;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* 响应结果 */
+#responseLog pre {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+/* 卡片样式 */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: bold;
+}

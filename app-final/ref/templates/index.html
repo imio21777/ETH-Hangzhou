@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>区块链分析系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="visualization">
+                <div id="agent-graph"></div>
+            </div>
+            <div class="user-interaction">
+                <div class="input-panel">
+                    <div class="input-form">
+                        <textarea id="requestContent" placeholder="输入您的请求，例如：钱包地址、合约地址、代币名称或交易指令等..."></textarea>
+                        <button id="submitRequest">提交请求</button>
+                    </div>
+                </div>
+                <div class="response-panel">
+                    <h3>响应结果</h3>
+                    <div id="responseLog" class="log-container"></div>
+                </div>
+                <div class="log-panel">
+                    <h3>代理交互日志</h3>
+                    <div id="interactionLog" class="log-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+[
+  {
+    "id": "f660ebdc-0877-46e0-b223-f9ba5a1bfe8d",
+    "type": "request",
+    "source": "User",
+    "target": "CentralAgent",
+    "content": "\u5728Binance\u4e0a\u4ee540\u7f8e\u5143\u7684\u4ef7\u683c\u8d2d\u4e700.5\u4e2a\u6bd4\u7279\u5e01",
+    "timestamp": 1743298309.7681558
+  },
+  {
+    "id": "76d2fa07-ab4a-4bbb-ae34-64d267e8f811",
+    "type": "task_assignment",
+    "source": "CentralAgent",
+    "target": "InfoProcessAgent",
+    "content": {
+      "task": "trade",
+      "data": "\u5728Binance\u4e0a\u4ee540\u7f8e\u5143\u7684\u4ef7\u683c\u8d2d\u4e700.5\u4e2a\u6bd4\u7279\u5e01"
+    },
+    "timestamp": 1743298310.273828
+  },
+  {
+    "id": "4aee505f-0095-4606-b317-ba34318f7d97",
+    "type": "data_request",
+    "source": "InfoProcessAgent",
+    "target": "BasicInfoAgent",
+    "content": {
+      "request": "token_info"
+    },
+    "timestamp": 1743298310.5782678
+  },
+  {
+    "id": "c587089e-9316-4933-aaed-a86e2501a4da",
+    "type": "api_call",
+    "source": "BasicInfoAgent",
+    "target": "API",
+    "content": {
+      "api_type": "blockchain",
+      "endpoint": "/api/v1/token",
+      "params": {
+        "chain": "ethereum",
+        "address": "0x..."
+      }
+    },
+    "timestamp": 1743298311.083563
+  },
+  {
+    "id": "0e28d871-8b1d-4f4e-a46b-6f04e62a0351",
+    "type": "api_response",
+    "source": "API",
+    "target": "BasicInfoAgent",
+    "content": {
+      "api_type": "blockchain",
+      "status": "success",
+      "data": {
+        "name": "Example Token",
+        "symbol": "EXT",
+        "totalSupply": "1000000000",
+        "decimals": 18,
+        "creationDate": "2022-01-01"
+      }
+    },
+    "timestamp": 1743298311.788876
+  },
+  {
+    "id": "06ac3b6e-6a9c-48b6-a390-8547714e80b9",
+    "type": "data_response",
+    "source": "BasicInfoAgent",
+    "target": "InfoProcessAgent",
+    "content": {
+      "tokenInfo": {
+        "name": "Example Token",
+        "symbol": "EXT",
+        "totalSupply": "1000000000"
+      }
+    },
+    "timestamp": 1743298312.293546
+  },
+  {
+    "id": "cac716d8-4848-4b4d-b374-4e408c264fcb",
+    "type": "clean_request",
+    "source": "InfoProcessAgent",
+    "target": "DataCleanAgent",
+    "content": {
+      "raw_data": {
+        "tokenInfo": {
+          "name": "Example Token",
+          "symbol": "EXT",
+          "totalSupply": "1000000000"
+        }
+      }
+    },
+    "timestamp": 1743298312.598825
+  },
+  {
+    "id": "fe8ef9f3-cf41-48c7-84ca-d3e88a012bac",
+    "type": "llm_request",
+    "source": "DataCleanAgent",
+    "target": "LLM",
+    "content": {
+      "request": "format_and_summarize",
+      "data": {
+        "tokenInfo": {
+          "name": "Example Token",
+          "symbol": "EXT",
+          "totalSupply": "1000000000"
+        }
+      }
+    },
+    "timestamp": 1743298313.104248
+  },
+  {
+    "id": "84d6d897-84aa-4ed2-991e-e16a24d0715b",
+    "type": "api_call",
+    "source": "LLM",
+    "target": "API",
+    "content": {
+      "api_type": "llm_api",
+      "prompt": "\u683c\u5f0f\u5316\u5e76\u603b\u7ed3\u4ee5\u4e0b\u4ee3\u5e01\u4fe1\u606f",
+      "data": {
+        "tokenInfo": {
+          "name": "Example Token",
+          "symbol": "EXT",
+          "totalSupply": "1000000000"
+        }
+      }
+    },
+    "timestamp": 1743298313.309598
+  },
+  {
+    "id": "b0a617d3-f1c9-445b-af2b-05bedcc1ea5e",
+    "type": "api_response",
+    "source": "API",
+    "target": "LLM",
+    "content": {
+      "api_type": "llm_api",
+      "result": "Example Token (EXT) \u662f\u4e00\u4e2a\u603b\u4f9b\u5e94\u91cf\u4e3a10\u4ebf\u7684ERC-20\u4ee3\u5e01\u3002"
+    },
+    "timestamp": 1743298314.017452
+  },
+  {
+    "id": "b4af7aae-bc34-447e-903f-9480c689bc75",
+    "type": "llm_response",
+    "source": "LLM",
+    "target": "DataCleanAgent",
+    "content": {
+      "summary": "Example Token (EXT) \u662f\u4e00\u4e2a\u603b\u4f9b\u5e94\u91cf\u4e3a10\u4ebf\u7684ERC-20\u4ee3\u5e01\u3002"
+    },
+    "timestamp": 1743298314.321003
+  },
+  {
+    "id": "f3744b32-1297-4dee-b14e-1d5cab9f171f",
+    "type": "clean_response",
+    "source": "DataCleanAgent",
+    "target": "InfoProcessAgent",
+    "content": {
+      "cleaned_data": {
+        "summary": "Example Token (EXT) \u662f\u4e00\u4e2a\u603b\u4f9b\u5e94\u91cf\u4e3a10\u4ebf\u7684ERC-20\u4ee3\u5e01\u3002"
+      }
+    },
+    "timestamp": 1743298314.626125
+  },
+  {
+    "id": "e6c30b4c-5bd0-4058-8f88-c99a5a64150e",
+    "type": "task_completed",
+    "source": "InfoProcessAgent",
+    "target": "CentralAgent",
+    "content": {
+      "result": "Example Token (EXT) \u662f\u4e00\u4e2a\u603b\u4f9b\u5e94\u91cf\u4e3a10\u4ebf\u7684ERC-20\u4ee3\u5e01\u3002",
+      "status": "success"
+    },
+    "timestamp": 1743298314.930004
+  },
+  {
+    "id": "abaefa17-515c-4d3e-b1d8-a8b215820ebb",
+    "type": "response",
+    "source": "CentralAgent",
+    "target": "User",
+    "content": "\u5df2\u5b8c\u6210trade\u8bf7\u6c42\u5904\u7406: \u5728Binance\u4e0a\u4ee540\u7f8e\u5143\u7684\u4ef7\u683c\u8d2d\u4e700.5\u4e2a\u6bd4\u7279\u5e01",
+    "timestamp": 1743298314.930242
+  }
+]

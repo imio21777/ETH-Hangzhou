@@ -1,0 +1,38 @@
+# LLM API Configuration
+LLM_BASE_URL = "https://api2.aigcbest.top/v1"
+LLM_API_KEY = "sk-NiMvTTja0AQMrEkNgOElafUVP6HnOcrBu0tJhfTeucBSJzU3"
+LLM_MODEL = "gpt-4o-2024-11-20"
+LLM_TEMPERATURE = 0.7
+LLM_MAX_TOKENS = 1000
+
+# Blockchain API Configuration
+BLOCKCHAIN_API_KEY = "demo_key"
+BLOCKCHAIN_API_URL = "https://api.etherscan.io/api"
+BLOCKCHAIN_NETWORK = "ethereum"
+
+# Centralized Exchange API Configuration
+BINANCE_API_KEY = "demo_key"
+BINANCE_SECRET_KEY = "demo_secret"
+COINBASE_API_KEY = "demo_key"
+COINBASE_SECRET_KEY = "demo_secret"
+
+# Telegram API Configuration
+TELEGRAM_BOT_TOKEN = "your_telegram_bot_token"
+TELEGRAM_CHAT_ID = "your_telegram_chat_id"
+
+# Demo Mode Configuration
+DEMO_MODE = "True"  # Set to "False" to use real API calls
+
+# Database Configuration
+DB_PATH = "blockchain_data.db"
+
+# Agent Parameters
+TRANSACTION_THRESHOLD = "1000000"  # Whale transaction threshold in USD
+ALERT_DEFAULT_INTERVAL = "60"  # Default alert check interval in seconds
+TX_MONITOR_INTERVAL = "300"  # Transaction monitoring interval in seconds
+DELAY_TIME = "1"  # Delay in seconds between requests or communications for debugging
+
+# Web UI Configuration
+UI_PORT = "5000"
+UI_HOST = "0.0.0.0"
+ENABLE_DEBUG = "True"
